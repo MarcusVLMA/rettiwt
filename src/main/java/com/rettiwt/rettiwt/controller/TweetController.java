@@ -1,28 +1,32 @@
 package com.rettiwt.rettiwt.controller;
 
-import java.util.List;
-
+import org.ocpsoft.rewrite.annotation.Join;
+import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import com.rettiwt.rettiwt.model.Tweet;
-import com.rettiwt.rettiwt.service.TweetService;
+import com.rettiwt.rettiwt.repository.TweetRepository;
 
-@Controller
+@Scope
+@ELBeanName(value = "tweetController")
+@Component(value = "tweetController")
+@Join(path = "/tweet", to = "/tweet-form.jsf")
 public class TweetController {
 	
 	@Autowired
-	TweetService tweetService;
+	private TweetRepository tweetRepository;
 	
-	@RequestMapping(value = "/tweets/all", method = RequestMethod.GET)
-	public ModelAndView getAllTweets() {
-		ModelAndView mv = new ModelAndView("allTweets");
-		List<Tweet> allTweets = tweetService.findAll();
-		mv.addObject("allTweets", allTweets);
-		
-		return mv;
+	private Tweet tweet = new Tweet();
+
+	public String save() {
+		tweetRepository.save(tweet);
+		tweet = new Tweet();
+		return "/tweet-list.xhtml?faces-redirect=true";
+	}
+
+	public Tweet getTweet() {
+		return tweet;
 	}
 }
