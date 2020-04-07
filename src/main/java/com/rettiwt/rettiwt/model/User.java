@@ -23,11 +23,14 @@ public class User {
 	private long id;
 	
 	@Column(unique=true, nullable=false)
-	private String login;
+	private String username;
 
 	@Column(nullable=false)
 	private String password;
-	
+
+	@Column(nullable = false)
+	private String role;
+
 	@OneToMany(
         mappedBy = "user",
         cascade = CascadeType.ALL,
@@ -44,12 +47,16 @@ public class User {
 		this.id = id;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public String getRole() {
+		return role;
+	}
+
+	public void setLogin(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -60,6 +67,10 @@ public class User {
 		this.password = password;
 	}
 	
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public void addTweet(Tweet tweet) {
         tweets.add(tweet);
         tweet.setUser(this);

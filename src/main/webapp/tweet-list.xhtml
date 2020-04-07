@@ -12,8 +12,8 @@
             <p:panel header="Tweets List">
                 <p:dataTable id="table" var="tweet" value="#{tweetList.tweets}">
                     <p:column>
-                        <f:facet name="header"># ID</f:facet>
-                        <h:outputText value="#{tweet.id}" />
+                        <f:facet name="header">Usuário</f:facet>
+                        <h:outputText value="#{tweet.user.login}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">Texto</f:facet>

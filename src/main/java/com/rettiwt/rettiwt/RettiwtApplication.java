@@ -14,19 +14,18 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class RettiwtApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(RettiwtApplication.class, args);
+	public static void main(final String[] args) {
+        SpringApplication.run(RettiwtApplication.class, args);
 	}
 	
 	@Bean
     public ServletRegistrationBean servletRegistrationBean() {
-        FacesServlet servlet = new FacesServlet();
+        final FacesServlet servlet = new FacesServlet();
         return new ServletRegistrationBean(servlet, "*.jsf");
     }
     @Bean
     public FilterRegistrationBean rewriteFilter() {
-        FilterRegistrationBean rwFilter = new FilterRegistrationBean(new RewriteFilter());
+        final FilterRegistrationBean rwFilter = new FilterRegistrationBean(new RewriteFilter());
         rwFilter.setDispatcherTypes(EnumSet.of(DispatcherType.FORWARD, DispatcherType.REQUEST,
                 DispatcherType.ASYNC, DispatcherType.ERROR));
         rwFilter.addUrlPatterns("/*");

@@ -6,9 +6,10 @@ import com.rettiwt.rettiwt.model.User;
 import java.util.List;
 
 public interface UserService {
-	List<User> findAll();
-	User findById(long id);
-	User save(User user);
+	public List<User> findAll();
+	public User findById(long id);
+	public User findByUsername(String username);
+	public User save(User user);
 	
-	Tweet saveTweet(User user, Tweet tweet);
+	public Tweet saveTweet(User user, Tweet tweet);
 }

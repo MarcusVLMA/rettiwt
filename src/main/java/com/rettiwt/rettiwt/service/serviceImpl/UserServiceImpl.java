@@ -15,10 +15,10 @@ import com.rettiwt.rettiwt.service.UserService;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	TweetRepository tweetRepository;
-	
+
 	@Override
 	public List<User> findAll() {
 		return userRepository.findAll();
@@ -30,10 +30,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public User findByUsername(String username) {	
+		return userRepository.findByUsername(username).get();
+	}
+
+	@Override
 	public User save(User user) {
 		return userRepository.save(user);
 	}
-	
+
 	@Override
 	public Tweet saveTweet(User user, Tweet tweet) {
 		user.addTweet(tweet);
