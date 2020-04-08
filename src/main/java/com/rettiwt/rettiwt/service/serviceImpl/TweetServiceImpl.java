@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rettiwt.rettiwt.model.Tweet;
+import com.rettiwt.rettiwt.model.User;
 import com.rettiwt.rettiwt.repository.TweetRepository;
 import com.rettiwt.rettiwt.service.TweetService;
 
@@ -25,4 +26,9 @@ public class TweetServiceImpl implements TweetService {
 		return tweetRepository.findById(id).get();
 	}
 
+	@Override
+	public Tweet save(User user, Tweet tweet) {
+		user.addTweet(tweet);
+		return tweetRepository.save(tweet);
+	}
 }

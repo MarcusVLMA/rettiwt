@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
   <title>Login</title>
@@ -13,20 +10,21 @@
 </h:head>
 
 <h:body>
-  <h:form prependId="false">
-
+  <div>
     <p:panelGrid columns="1" styleClass="ui-fluid center ui-noborder">
       <h2>Please login</h2>
 
-      <p:outputLabel value="Login failed!" styleClass="red"
-        rendered="${!empty param['error']}" />
+      <h:form prependId="false">
+        <p:outputLabel value="Login failed!" styleClass="red" rendered="${!empty param['error']}" />
 
-      <p:inputText id="username" placeholder="User name" />
-      <p:password id="password" placeholder="Password" />
-      
-      <p:commandButton value="Login" ajax="false" />
+        <p:inputText id="username" placeholder="User name" />
+        <p:password id="password" placeholder="Password" />
+
+        <p:commandButton value="Login" ajax="false" />
+      </h:form>
+      <p:button href="/signup" value="Cadastre-se!" />
     </p:panelGrid>
-
-  </h:form>
+  </div>
 </h:body>
+
 </html>

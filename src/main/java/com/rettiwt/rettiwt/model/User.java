@@ -28,9 +28,6 @@ public class User {
 	@Column(nullable=false)
 	private String password;
 
-	@Column(nullable = false)
-	private String role;
-
 	@OneToMany(
         mappedBy = "user",
         cascade = CascadeType.ALL,
@@ -51,11 +48,7 @@ public class User {
 		return username;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setLogin(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
@@ -65,10 +58,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	public void setRole(String role) {
-		this.role = role;
 	}
 
 	public void addTweet(Tweet tweet) {

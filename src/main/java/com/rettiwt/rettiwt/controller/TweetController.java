@@ -4,10 +4,15 @@ import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.rettiwt.rettiwt.model.Tweet;
-import com.rettiwt.rettiwt.repository.TweetRepository;
+import com.rettiwt.rettiwt.model.User;
+import com.rettiwt.rettiwt.service.TweetService;
+import com.rettiwt.rettiwt.service.UserService;
 
 @Scope
 @ELBeanName(value = "tweetController")
@@ -16,12 +21,25 @@ import com.rettiwt.rettiwt.repository.TweetRepository;
 public class TweetController {
 	
 	@Autowired
-	private TweetRepository tweetRepository;
+	private UserService userService;
 	
+	@Autowired
+	private TweetService tweetService;
+
 	private Tweet tweet = new Tweet();
 
+
 	public String save() {
-		tweetRepository.save(tweet);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user;
+		if(principal instanceof UserDetails) {
+			String username = ((UserDetails)principal).getUsername();
+			user = userService.findByUsername(username).get();
+		} else {
+			user = userService.findByUsername(principal.toString()).get();
+		}
+
+		tweetService.save(user, tweet);
 		tweet = new Tweet();
 		return "/tweet-list.xhtml?faces-redirect=true";
 	}
