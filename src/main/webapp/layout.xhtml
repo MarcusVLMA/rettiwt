@@ -18,10 +18,10 @@
                     <f:facet name="left">
                         <p:button href="/" value="Lista de Tweets" />
                         <p:button href="/tweet" value="Novo Tweet" />
-                        <h:form onsubmit="this.action='#{request.contextPath}/logout';"
-                            class="logout-form">
-                            <p:commandButton value="Logout" ajax="false" />
-                        </h:form>
+                        <p:button href="/user/list" value="Lista de Usuários" />
+                    </f:facet>
+                    <f:facet name="right">
+                        <p:button href="#{request.contextPath}/logout" value="Logout" />
                     </f:facet>
                 </p:toolbar>
             </div>

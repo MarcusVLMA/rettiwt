@@ -2,6 +2,8 @@ package com.rettiwt.rettiwt.model;
 
 import com.rettiwt.rettiwt.model.User;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="tweets")
@@ -27,6 +31,9 @@ public class Tweet {
     )
     @JoinColumn(name = "user_id")
 	private User user;
+
+	@Column(nullable = false)
+	private Timestamp timestamp; 
 
 	public long getId() {
 		return id;
@@ -52,4 +59,11 @@ public class Tweet {
 		this.user = user;
 	}
 	
+	public Timestamp getTimestamp() {
+		return this.timestamp;
+	}
+
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
 }

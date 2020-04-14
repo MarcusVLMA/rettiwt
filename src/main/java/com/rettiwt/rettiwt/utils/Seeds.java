@@ -26,11 +26,11 @@ public class Seeds {
 		List<User> 	userList = new ArrayList<>();
 		
 		User user1 = new User();
-		user1.setLogin("neymarjr");
+		user1.setUsername("neymarjr");
 		user1.setPassword("123456");
 		
 		User user2 = new User();
-		user2.setLogin("tiosergio");
+		user2.setUsername("tiosergio");
 		user2.setPassword("654321");
 		
 		Tweet tweet1 = new Tweet();

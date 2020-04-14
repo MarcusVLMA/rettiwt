@@ -10,4 +10,5 @@ public interface UserService {
 	public Optional<User> findById(long id);
 	public Optional<User> findByUsername(String username);
 	public User save(User user);
+	public User loggedUser();
 }

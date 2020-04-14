@@ -10,14 +10,11 @@ import org.ocpsoft.rewrite.faces.annotation.IgnorePostback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.rettiwt.rettiwt.model.Tweet;
-import com.rettiwt.rettiwt.repository.TweetRepository;
+import com.rettiwt.rettiwt.model.User;
 import com.rettiwt.rettiwt.service.TweetService;
+import com.rettiwt.rettiwt.service.UserService;
 
 @Scope(value = "session")
 @ELBeanName(value = "tweetList")
@@ -25,15 +22,28 @@ import com.rettiwt.rettiwt.service.TweetService;
 @Join(path = "/", to = "/tweet-list.jsf")
 public class TweetListController {
 	@Autowired
-	private TweetRepository tweetRepository;
+	private TweetService tweetService;
 	
 	private List<Tweet> tweets;
+	
+	@Autowired
+	private UserService userService;
+	
+    private User loggedUser;
 
 	@Deferred
 	@RequestAction
 	@IgnorePostback
 	public void loadTweets() {
-		tweets = tweetRepository.findAll();
+		loggedUser = userService.loggedUser();
+
+		List<Tweet> allTweets = loggedUser.getTweets();
+		for(User user : loggedUser.getFollowing()) {
+			allTweets.addAll(user.getTweets());
+		}
+
+		allTweets.sort((t1, t2) -> t2.getTimestamp().compareTo(t1.getTimestamp()));
+		tweets = allTweets;
 	}
 
 	public List<Tweet> getTweets() {

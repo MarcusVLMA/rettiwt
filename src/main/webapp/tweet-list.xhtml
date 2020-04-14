@@ -10,7 +10,12 @@
     <ui:define name="content">
         <h:form id="form">
             <p:panel header="Tweets List">
-                <p:dataTable id="table" var="tweet" value="#{tweetList.tweets}">
+                <p:dataTable id="table"
+                    rows="5"
+                    paginator="true"
+                    var="tweet"
+                    value="#{tweetList.tweets}"
+                >
                     <p:column>
                         <f:facet name="header">Usuário</f:facet>
                         <h:outputText value="#{tweet.user.username}" />

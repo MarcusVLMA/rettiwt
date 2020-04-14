@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.rettiwt.rettiwt.model.User;
@@ -33,5 +35,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User save(User user) {
 		return userRepository.save(user);
+	}
+
+	@Override
+	public User loggedUser() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loggedUser;
+        
+		if(principal instanceof UserDetails) {
+			String username = ((UserDetails)principal).getUsername();
+			loggedUser = userRepository.findByUsername(username).get();
+		} else {
+			loggedUser = userRepository.findByUsername(principal.toString()).get();
+        }
+		
+		return loggedUser;
 	}
 }
