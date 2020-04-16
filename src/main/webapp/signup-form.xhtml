@@ -8,18 +8,23 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-  <title>Cadastro</title>
+  <title>Rettiwt - Cadastro</title>
+  <h:outputStylesheet library="css" name="general.css" />
 </h:head>
 
-<h:body>
-  <h:form id="userForm">
+<h:body class="body">
+  <h:form styleClass="w-30" id="userForm">
+    <p:growl id="growl" showDetail="true" sticky="false" life="4000" />  
+
     <p:panel header="Cadastre-se!">
         <h:panelGrid columns="1">
-            <p:outputLabel for="username" value="Username: " />
-            <p:inputText id="username" value="#{signUpController.user.username}" />
-            <p:outputLabel for="password" value="Password: " />
-            <p:password id="password" value="#{signUpController.user.password}"/>
-            <h:commandButton value="Cadastrar!" action="#{signUpController.save}" />
+          <p:outputLabel for="username" value="Username: " />
+          <p:inputText id="username" value="#{signUpController.user.username}" />
+          <p:outputLabel for="password" value="Password: " />
+          <p:password id="password" value="#{signUpController.user.password}"/>
+          <div class="buttons-container">
+            <p:commandButton value="Cadastrar!" action="#{signUpController.save}" />
+          </div>
         </h:panelGrid>
     </p:panel>
 </h:form>

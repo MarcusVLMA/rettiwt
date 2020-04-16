@@ -2,6 +2,9 @@ package com.rettiwt.rettiwt.controller;
 
 import java.sql.Timestamp;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +31,24 @@ public class TweetController {
 	private Tweet tweet = new Tweet();
 
 	public String save() {
-		User loggedUser = userService.loggedUser();
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		if(tweet.getText() == null || tweet.getText().isEmpty()) {
+			context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_ERROR, "What?","You can't send a empty tweet"));
+			
+			return "/tweet-form.xhtml?empty-twitter=true";
+		} else {
+			User loggedUser = userService.loggedUser();
 
-		tweet.setTimestamp(new Timestamp(System.currentTimeMillis()) );
-		tweetService.save(loggedUser, tweet);
-		tweet = new Tweet();
-		return "/tweet-list.xhtml?faces-redirect=true";
+			tweet.setTimestamp(new Timestamp(System.currentTimeMillis()) );
+			tweetService.save(loggedUser, tweet);
+			tweet = new Tweet();
+			
+			context.addMessage("growl", new FacesMessage("Nice!", "Succesfully tweeted!"));
+			context.getExternalContext().getFlash().setKeepMessages(true);
+
+			return "/tweet-list.xhtml?faces-redirect=true";
+		}
 	}
 
 	public Tweet getTweet() {

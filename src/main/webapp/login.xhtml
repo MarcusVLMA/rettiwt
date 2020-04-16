@@ -5,26 +5,27 @@
   xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-  <title>Login</title>
-  <h:outputStylesheet name="/css/login.css" />
+  <title>Rettiwt - Login</title>
+  <h:outputStylesheet library="css" name="general.css" />
 </h:head>
 
-<h:body>
-  <div>
-    <p:panelGrid columns="1" styleClass="ui-fluid center ui-noborder">
-      <h2>Please login</h2>
-      
-      <h:form prependId="false">
-        <p:outputLabel value="Login failed!" styleClass="red" rendered="${!empty param['error']}" />
+<h:body class="body">
+  <h:form styleClass="w-30" prependId="false">
+    <p:growl id="growl" showDetail="true" sticky="false" life="4000" />
 
-        <p:inputText id="username" placeholder="User name" />
-        <p:password id="password" placeholder="Password" />
-
-        <p:commandButton value="Login" ajax="false" />
-      </h:form>
-      <p:button href="/signup" value="Cadastre-se!" />
-    </p:panelGrid>
-  </div>
+    <p:panel header="Login">
+      <h:panelGrid columns="1">
+        <p:outputLabel for="username" value="Username: " />
+        <p:inputText id="username" />
+        <p:outputLabel for="password" value="Password: " />
+        <p:password id="password" />
+        <div class="buttons-container">
+          <p:commandButton value="Login" ajax="false" />
+          <p:button href="/signup" value="Cadastre-se!" />
+        </div>
+      </h:panelGrid>
+    </p:panel>
+  </h:form>
 </h:body>
 
 </html>

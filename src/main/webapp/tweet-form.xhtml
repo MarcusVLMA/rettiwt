@@ -6,12 +6,16 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 <ui:composition template="layout.xhtml">
     <ui:define name="content">
-        <h:form id="tweetForm">
+        <h:form styleClass="w-50" id="tweetForm">
+            <p:growl id="growl" showDetail="true" sticky="false" life="4000" />
+
             <p:panel header="Seu tweet">
                 <h:panelGrid columns="1">
                     <p:outputLabel for="text" value="Text: " />
                     <p:inputText id="text" value="#{tweetController.tweet.text}" />
-                    <h:commandButton value="Salvar" action="#{tweetController.save}" />
+                    <div class="buttons-container">
+                        <p:commandButton value="Salvar" update="tweetForm" action="#{tweetController.save}" />
+                    </div>
                 </h:panelGrid>
             </p:panel>
         </h:form>

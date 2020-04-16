@@ -1,0 +1,44 @@
+.body {
+    width: 100vw;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.w-30 {
+    width: 30%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.w-75 {
+    width: 75%;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.ui-panel-titlebar {
+    background: #9cd5ff;
+}
+
+.buttons-container {
+    margin-top: 10px;
+}
+
+.ui-button {
+    margin-top: 10px;
+    background: none !important;
+}
+
+.ui-toolbar {
+    background: #9cd5ff;
+}
+
+.ui-toolbar .ui-button {
+    background: #ffffff !important;
+}

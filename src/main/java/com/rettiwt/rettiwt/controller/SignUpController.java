@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import com.rettiwt.rettiwt.model.User;
 import com.rettiwt.rettiwt.service.UserService;
 
@@ -22,13 +25,18 @@ public class SignUpController {
 
 	private User user = new User();
 
-
+	
 	public String save() {
         Optional<User> userExists = userService.findByUsername(user.getUsername());
-        if(userExists.isPresent()) {
-            return "/signup-form.xhtml?username-exists=true";    
+		FacesContext context = FacesContext.getCurrentInstance();
+		if(userExists.isPresent()) {
+			context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ops!","Username already exists"));
+			return "/signup-form.xhtml?username-exists=true";    
         }
-        userService.save(user);
+		userService.save(user);
+		
+		context.addMessage("growl", new FacesMessage("Successful", "Succesfully signed up"));
+		context.getExternalContext().getFlash().setKeepMessages(true);
 		return "/login.xhtml";
 	}
 
